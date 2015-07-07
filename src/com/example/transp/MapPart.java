@@ -22,16 +22,16 @@ import org.osgi.framework.FrameworkUtil;
 public class MapPart {
 	private Browser browser;
 	private LocationChangeListener listener;
-	
+
 	private void addMarkers(Location[] locations, String color) {
-    	StringBuilder sb = new StringBuilder("addMarkers({");
-    	// In real application the name should be escaped.
-        for (Location plant: locations)
-        	sb.append(String.format("'%s': %s, ", plant.name, plant.latlng));
-        sb.append(String.format("}, '%s');", color));
+		StringBuilder sb = new StringBuilder("addMarkers({");
+		// In real application the name should be escaped.
+		for (Location plant : locations)
+			sb.append(String.format("'%s': %s, ", plant.name, plant.latlng));
+		sb.append(String.format("}, '%s');", color));
 		browser.execute(sb.toString());
 	}
-	
+
 	@PostConstruct
 	public void postConstruct(Composite parent, final TranspService service) throws IOException {
 		Bundle bundle = FrameworkUtil.getBundle(MapPart.class);
@@ -39,22 +39,22 @@ public class MapPart {
 		browser = new Browser(parent, SWT.NONE);
 		browser.setUrl(FileLocator.toFileURL(url).toString());
 
-        browser.addProgressListener(new ProgressListener() {
-            @Override
-            public void completed(ProgressEvent event) {
-            	addMarkers(service.plants(), "01bf00");
-            	addMarkers(service.markets(), "6b98ff");
-            }
+		browser.addProgressListener(new ProgressListener() {
+			@Override
+			public void completed(ProgressEvent event) {
+				addMarkers(service.plants(), "01bf00");
+				addMarkers(service.markets(), "6b98ff");
+			}
 
 			@Override
-			public void changed(ProgressEvent event) {}
-        });
+			public void changed(ProgressEvent event) {
+			}
+		});
 
-        listener = new LocationChangeListener() {
+		listener = new LocationChangeListener() {
 			@Override
 			public void setLocation(Location location) {
-				String name = location != null ?
-						String.format("'%s'", location.name) : "null";
+				String name = location != null ? String.format("'%s'", location.name) : "null";
 				browser.execute(String.format("setLocation(%s);", name));
 			}
 		};

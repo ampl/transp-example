@@ -23,12 +23,11 @@ import org.eclipse.swt.widgets.Table;
 class SelectionChangedListener implements ISelectionChangedListener, FocusListener {
 	private TranspService service;
 	private TableViewer viewer;
-	
+
 	void setSelection(ISelection sel) {
 		if (sel.isEmpty() || !(sel instanceof IStructuredSelection))
 			return;
-		service.setLocation(
-				(Location) ((IStructuredSelection) sel).getFirstElement());
+		service.setLocation((Location) ((IStructuredSelection) sel).getFirstElement());
 	}
 
 	SelectionChangedListener(TranspService service, TableViewer viewer) {
@@ -67,8 +66,7 @@ public class PlantsPart {
 
 	@PostConstruct
 	public void postConstruct(Composite parent, TranspService service) {
-		viewer = new TableViewer(parent, SWT.H_SCROLL |
-				SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("Name", new ColumnLabelProvider() {
 			@Override
@@ -86,8 +84,7 @@ public class PlantsPart {
 		viewer.setContentProvider(new ArrayContentProvider());
 		viewer.setInput(service.plants());
 
-		SelectionChangedListener listener =
-				new SelectionChangedListener(service, viewer);
+		SelectionChangedListener listener = new SelectionChangedListener(service, viewer);
 		viewer.addSelectionChangedListener(listener);
 		viewer.getControl().addFocusListener(listener);
 
@@ -97,7 +94,7 @@ public class PlantsPart {
 	}
 
 	@Focus
-    public void onFocus(TranspService service) {
+	public void onFocus(TranspService service) {
 		viewer.getControl().setFocus();
-    }
+	}
 }

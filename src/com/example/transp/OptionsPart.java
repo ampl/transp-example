@@ -23,8 +23,7 @@ public class OptionsPart {
 
 	@PostConstruct
 	public void postConstruct(Composite parent, TranspService service) {
-		viewer = new TableViewer(parent, SWT.H_SCROLL |
-				SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("Name", new ColumnLabelProvider() {
 			@Override
@@ -35,12 +34,12 @@ public class OptionsPart {
 		addColumn("Value", new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return Double.toString(((TranspService)element).freight());
+				return Double.toString(((TranspService) element).freight());
 			}
 		});
 
 		viewer.setContentProvider(new ArrayContentProvider());
-		viewer.setInput(new Object[] {service});
+		viewer.setInput(new Object[] { service });
 
 		Table table = viewer.getTable();
 		table.setHeaderVisible(true);
@@ -48,7 +47,7 @@ public class OptionsPart {
 	}
 
 	@Focus
-    public void onFocus(TranspService service) {
+	public void onFocus(TranspService service) {
 		viewer.getControl().setFocus();
-    }
+	}
 }

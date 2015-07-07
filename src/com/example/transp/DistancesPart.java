@@ -27,13 +27,12 @@ public class DistancesPart {
 
 	@PostConstruct
 	public void postConstruct(Composite parent, final TranspService service) {
-		viewer = new TableViewer(parent, SWT.H_SCROLL |
-				SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("", new ColumnLabelProvider() {
 			@Override
 			public String getText(Object element) {
-				return service.plants()[(int)element].name;
+				return service.plants()[(int) element].name;
 			}
 		});
 		final Market[] markets = service.markets();
@@ -42,7 +41,7 @@ public class DistancesPart {
 			addColumn(markets[i].name, new ColumnLabelProvider() {
 				@Override
 				public String getText(Object element) {
-					int index = (int)element * markets.length + market_index;
+					int index = (int) element * markets.length + market_index;
 					return Double.toString(service.distances()[index]);
 				}
 			});
@@ -60,7 +59,7 @@ public class DistancesPart {
 	}
 
 	@Focus
-    public void onFocus() {
+	public void onFocus() {
 		viewer.getControl().setFocus();
-    }
+	}
 }

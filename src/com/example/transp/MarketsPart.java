@@ -44,8 +44,7 @@ public class MarketsPart {
 		viewer.setContentProvider(new ArrayContentProvider());
 		viewer.setInput(service.markets());
 
-		SelectionChangedListener listener =
-				new SelectionChangedListener(service, viewer);
+		SelectionChangedListener listener = new SelectionChangedListener(service, viewer);
 		viewer.addSelectionChangedListener(listener);
 		viewer.getControl().addFocusListener(listener);
 
@@ -55,7 +54,7 @@ public class MarketsPart {
 	}
 
 	@Focus
-    public void onFocus() {
+	public void onFocus() {
 		viewer.getControl().setFocus();
-    }
+	}
 }
