@@ -3,6 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Transportation Example
 Bundle-SymbolicName: com.example.transp;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .,
+ lib/ampl-1.0.jar
 Bundle-Vendor: AMPL
 Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.eclipse.core.runtime;bundle-version="3.11.0",
@@ -15,4 +17,4 @@ Require-Bundle: javax.inject;bundle-version="1.0.0",
  org.eclipse.e4.ui.di;bundle-version="1.1.0",
  org.eclipse.e4.core.contexts;bundle-version="1.4.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ClassPath: .,lib/ampl-1.0.jar
+Import-Package: javax.inject;version="1.0.0"

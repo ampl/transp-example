@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_IiZpoCTtEeW6mukjqDDjGw" elementId="org.eclipse.e4.ide.application" bindingContexts="_IiZpqSTtEeW6mukjqDDjGw">
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_IiZpoCTtEeW6mukjqDDjGw" elementId="org.eclipse.e4.ide.application" bindingContexts="_IiZpqSTtEeW6mukjqDDjGw">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_IiZpoSTtEeW6mukjqDDjGw" label="com.example.transp" width="500" height="400">
     <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_uBBnQCTtEeW6mukjqDDjGw" elementId="com.example.transp.partsashcontainer.0" containerData="" horizontal="true">
@@ -11,11 +11,18 @@
       </children>
       <children xsi:type="basic:Part" xmi:id="_vpn8wCTtEeW6mukjqDDjGw" elementId="com.example.transp.part.map" containerData="7000" contributionURI="bundleclass://com.example.transp/com.example.transp.MapPart" label="Map"/>
     </children>
+    <mainMenu xmi:id="_5SiBoCT2EeW6mukjqDDjGw" elementId="org.eclipse.ui.main.menu">
+      <children xsi:type="menu:Menu" xmi:id="_FGjCQCT3EeW6mukjqDDjGw" elementId="org.eclipse.ui.file.menu" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_JhrJwCT3EeW6mukjqDDjGw" elementId="org.eclipse.ui.file.exit" label="Exit" command="_C9cV0CT5EeW6mukjqDDjGw"/>
+      </children>
+    </mainMenu>
   </children>
+  <handlers xmi:id="_oKLHoCT4EeW6mukjqDDjGw" elementId="com.example.transp.handler.exit" contributionURI="bundleclass://com.example.transp/com.example.transp.ExitHandler" command="_C9cV0CT5EeW6mukjqDDjGw"/>
   <rootContext xmi:id="_IiZpqSTtEeW6mukjqDDjGw" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_IiZpqiTtEeW6mukjqDDjGw" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_IiZpqyTtEeW6mukjqDDjGw" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
+  <commands xmi:id="_C9cV0CT5EeW6mukjqDDjGw" elementId="org.eclipse.ui.file.exit" commandName="Exit"/>
   <addons xmi:id="_IiZpoiTtEeW6mukjqDDjGw" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_IiZpoyTtEeW6mukjqDDjGw" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_IiZppCTtEeW6mukjqDDjGw" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
