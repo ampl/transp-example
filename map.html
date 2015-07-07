@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+  </style>
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+  </script>
+  <script type="text/javascript">
+    var map = null;
+    var markers = {};
+    var selection = null;
+
+    function initialize() {
+      var mapOptions = {mapTypeId: google.maps.MapTypeId.ROADMAP};
+      map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'address': 'US'}, function (results, status) {
+        map.fitBounds(results[0].geometry.viewport);               
+      });
+      addMarkers({'Seattle Plant': {lat: 47.6097, lng: -122.333}, 'San Diego Plant': {lat: 32.7150, lng: -117.163}, }, '01bf00');
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function getMarkerImage(color) {
+      return new google.maps.MarkerImage(
+        "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + color,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    }
+    
+    function addMarker(latlng, title, color) {
+      if (map == null) return;
+      var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title: title,
+        icon: getMarkerImage(color)
+      });
+      markers[title] = marker;
+    }
+    
+    function addMarkers(locations, color) {
+      for (var loc in locations) {
+        if (locations.hasOwnProperty(loc))
+          addMarker(locations[loc], loc, color);
+      }
+    }
+    
+    function setLocation(name) {
+      if (selection != null)
+        selection.marker.setIcon(selection.icon);
+      if (name == null) {
+        selection = null;
+        return;
+      }
+      marker = markers[name];
+      selection = {'marker': marker, 'icon': marker.icon};
+      marker.setIcon(getMarkerImage("ff0000"));
+    }
+  </script>
+</head>
+<body>
+  <div id="map-canvas"></div>
+</body>
+</html>

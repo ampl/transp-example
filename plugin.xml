@@ -11,6 +11,14 @@
                name="applicationCSS"
                value="platform:/plugin/com.example.transp/css/default.css">
          </property>
+         <property
+               name="appName"
+               value="com.example.transp">
+         </property>
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://com.example.transp/com.example.transp.LifeCycleManager">
+         </property>
       </product>
    </extension>
 
