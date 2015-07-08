@@ -124,14 +124,13 @@ public class TranspService {
 		listeners.remove(listener);
 	}
 	
-	URL getResourceURL(String filename) throws IOException {
+	public URL getResourceURL(String filename) throws IOException {
 		Bundle bundle = FrameworkUtil.getBundle(TranspService.class);
 		URL url = FileLocator.find(bundle, new Path(filename), null);
 		return FileLocator.toFileURL(url);
 	}
-	
+
 	public void optimize() throws IOException {
-		// TODO: execute asynchronously
 		try (AMPL ampl = new AMPL()) {
 			ampl.read(getResourceURL("transp.ampl").getPath());
 			ampl.solve();

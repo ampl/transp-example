@@ -26,7 +26,7 @@ public class MarketsPart {
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent, TranspService service) {
+	public void postConstruct(Composite parent, TranspService service, ErrorHandler errorHandler) {
 		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("Name", new ColumnLabelProvider() {
@@ -40,15 +40,15 @@ public class MarketsPart {
 			public String getText(Object element) {
 				return Double.toString(((Market) element).demand);
 			}
-		}).setEditingSupport(new TableEditingSupport(viewer) {
+		}).setEditingSupport(new TableEditingSupport<Market>(viewer, errorHandler) {
 			@Override
-			protected Object getValue(Object element) {
-				return Double.toString(((Market) element).demand);
+			protected double doGetValue(Market element) {
+				return element.demand;
 			}
+
 			@Override
-			protected void setValue(Object element, Object value) {
-				((Market) element).demand = Double.valueOf((String)value);
-				viewer.update(element, null);
+			protected void doSetValue(Market element, double value) {
+				element.demand = value;
 			}
 		});
 

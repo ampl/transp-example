@@ -66,8 +66,7 @@ public class PlantsPart {
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent,
-			final TranspService service, final ErrorHandler errorHandler) {
+	public void postConstruct(Composite parent, TranspService service, ErrorHandler errorHandler) {
 		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("Name", new ColumnLabelProvider() {
@@ -81,27 +80,15 @@ public class PlantsPart {
 			public String getText(Object element) {
 				return Double.toString(((Plant) element).capacity);
 			}
-		}).setEditingSupport(new TableEditingSupport(viewer) {
+		}).setEditingSupport(new TableEditingSupport<Plant>(viewer, errorHandler) {
 			@Override
-			protected Object getValue(Object element) {
-				return Double.toString(((Plant) element).capacity);
+			protected double doGetValue(Plant element) {
+				return element.capacity;
 			}
 
 			@Override
-			protected void setValue(Object element, Object value) {
-				double capacity;
-				try {
-					capacity = Double.parseDouble((String) value);
-				} catch (NumberFormatException e) {
-					errorHandler.handle(String.format("%s is not a valid number", value));
-					return;
-				}
-				if (capacity < 0) {
-					errorHandler.handle("Capacity cannot be negative");
-					return;
-				}
-				((Plant) element).capacity = capacity;
-				viewer.update(element, null);
+			protected void doSetValue(Plant element, double value) {
+				element.capacity = value;
 			}
 		});
 
