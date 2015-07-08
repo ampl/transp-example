@@ -52,6 +52,25 @@ public class MapPart {
 			}
 		};
 		service.addLocationChangeListener(listener);
+		service.addShipmentsChangeListener(new ShipmentsChangeListener() {
+			@Override
+			public void shipmentsChanged() {
+				StringBuilder sb = new StringBuilder("addPaths([");
+				Plant[] plants = service.plants();
+				Market[] markets = service.markets();
+				double[][] shipments = service.shipments();
+				for (int i = 0; i < plants.length; i++) {
+					for (int j = 0; j < markets.length; j++) {
+						if (shipments[i][j] != 0) {
+							sb.append(String.format("[%s, %s], ",
+									plants[i].latlng, markets[j].latlng));
+						}
+					}
+				}
+				sb.append("]);");
+				browser.execute(sb.toString());
+			}
+		});
 	}
 
 	@PreDestroy
