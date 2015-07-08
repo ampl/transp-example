@@ -163,37 +163,30 @@ public class TranspService {
 		return FileLocator.toFileURL(url);
 	}
 	
-	private static String escape(String name) {
-		// Temporary workaround for a bug in AMPL.setData.
-		return name.replace(" ", "_");
-	}
-
 	public void optimize() throws IOException {
 		try (AMPL ampl = new AMPL()) {
 			// Load model.
 			ampl.read(getResourceURL("transp.ampl").getPath());
 
 			// Pass data to AMPL.
-			String[] plantNames = new String[plants.length];
+			Object[] plantIDs = new Object[plants.length];
 			DataFrame df = new DataFrame(1, "Plants", "Capacity");
 			for (int i = 0; i < plants.length; i++) {
-				String name = escape(plants[i].name);
-				plantNames[i] = name;
-				df.addRow(name, plants[i].capacity);
+				plantIDs[i] = i;
+				df.addRow(i, plants[i].capacity);
 			}
 			ampl.setData(df, "Plants");
 			
-			String[] marketNames = new String[markets.length];
+			Object[] marketIDs = new Object[markets.length];
 			df = new DataFrame(1, "Markets", "Demand");
 			for (int i = 0; i < markets.length; i++) {
-				String name = escape(markets[i].name);
-				marketNames[i] = name;
-				df.addRow(name, markets[i].demand);
+				marketIDs[i] = i;
+				df.addRow(i, markets[i].demand);
 			}
 			ampl.setData(df, "Markets");
 			
 			df = new DataFrame(2, "Plants", "Markets", "Distance");
-			df.setMatrix(distances, plantNames, marketNames);
+			df.setMatrix(distances, plantIDs, marketIDs);
 			ampl.setData(df);
 			
 			ampl.getParameter("Freight").set(freight);
