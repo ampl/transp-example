@@ -52,7 +52,7 @@ class SelectionChangedListener implements ISelectionChangedListener, FocusListen
 }
 
 /**
- * Plants view
+ * Plants view part
  */
 public class PlantsPart {
 	private TableViewer viewer;

@@ -9,7 +9,11 @@ import org.eclipse.swt.widgets.Display;
 
 public class OptimizeHandler {
 	@Execute
-	public void execute(Display display, final TranspService service, final ErrorHandler errorHandler) {
+	public void execute(Display display,
+			final TranspService service, final ErrorHandler errorHandler) {
+		// Since the problem is easy we use busy indicator.
+		// For a larger problem it would be better to run a job
+		// with a progress indication.
 		BusyIndicator.showWhile(display, new Runnable() {
 			@Override
 			public void run() {

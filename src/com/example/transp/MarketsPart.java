@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
 /**
- * Markets view
+ * Markets view part
  */
 public class MarketsPart {
 	private TableViewer viewer;

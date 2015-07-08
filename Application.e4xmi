@@ -3,11 +3,16 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_IiZpoSTtEeW6mukjqDDjGw" label="Transportation Example" width="500" height="400">
     <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_uBBnQCTtEeW6mukjqDDjGw" elementId="com.example.transp.partsashcontainer.0" containerData="" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_x9OXECTtEeW6mukjqDDjGw" elementId="com.example.transp.partstack.0" containerData="3000">
-        <children xsi:type="basic:Part" xmi:id="_ySkU8CTtEeW6mukjqDDjGw" elementId="com.example.transp.part.plants" contributionURI="bundleclass://com.example.transp/com.example.transp.PlantsPart" label="Plants"/>
-        <children xsi:type="basic:Part" xmi:id="_ym1UwCTtEeW6mukjqDDjGw" elementId="com.example.transp.part.markets" contributionURI="bundleclass://com.example.transp/com.example.transp.MarketsPart" label="Markets"/>
-        <children xsi:type="basic:Part" xmi:id="_zFoJkCTtEeW6mukjqDDjGw" elementId="com.example.transp.part.distances" contributionURI="bundleclass://com.example.transp/com.example.transp.DistancesPart" label="Distances"/>
-        <children xsi:type="basic:Part" xmi:id="_zYmI4CTtEeW6mukjqDDjGw" elementId="com.example.transp.part.options" contributionURI="bundleclass://com.example.transp/com.example.transp.OptionsPart" label="Options"/>
+      <children xsi:type="basic:PartSashContainer" xmi:id="_x5QG4CW6EeWX94cAw5w-Cg" elementId="com.example.transp.partsashcontainer.0" containerData="3000">
+        <children xsi:type="basic:PartStack" xmi:id="_x9OXECTtEeW6mukjqDDjGw" elementId="com.example.transp.partstack.0" containerData="">
+          <children xsi:type="basic:Part" xmi:id="_ySkU8CTtEeW6mukjqDDjGw" elementId="com.example.transp.part.plants" contributionURI="bundleclass://com.example.transp/com.example.transp.PlantsPart" label="Plants"/>
+          <children xsi:type="basic:Part" xmi:id="_ym1UwCTtEeW6mukjqDDjGw" elementId="com.example.transp.part.markets" contributionURI="bundleclass://com.example.transp/com.example.transp.MarketsPart" label="Markets"/>
+          <children xsi:type="basic:Part" xmi:id="_zFoJkCTtEeW6mukjqDDjGw" elementId="com.example.transp.part.distances" contributionURI="bundleclass://com.example.transp/com.example.transp.DistancesPart" label="Distances"/>
+          <children xsi:type="basic:Part" xmi:id="_zYmI4CTtEeW6mukjqDDjGw" elementId="com.example.transp.part.options" contributionURI="bundleclass://com.example.transp/com.example.transp.OptionsPart" label="Options"/>
+        </children>
+        <children xsi:type="basic:PartStack" xmi:id="_fk9asCW7EeWX94cAw5w-Cg" elementId="com.example.transp.partstack.1">
+          <children xsi:type="basic:Part" xmi:id="_1hYrMCW6EeWX94cAw5w-Cg" elementId="com.example.transp.part.shipments" contributionURI="bundleclass://com.example.transp/com.example.transp.ShipmentsPart" label="Shipments"/>
+        </children>
       </children>
       <children xsi:type="basic:Part" xmi:id="_vpn8wCTtEeW6mukjqDDjGw" elementId="com.example.transp.part.map" containerData="7000" contributionURI="bundleclass://com.example.transp/com.example.transp.MapPart" label="Map"/>
     </children>

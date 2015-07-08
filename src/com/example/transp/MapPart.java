@@ -12,7 +12,7 @@ import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Map view
+ * Map view part
  */
 public class MapPart {
 	private Browser browser;

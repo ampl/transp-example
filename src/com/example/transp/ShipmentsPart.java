@@ -1,3 +1,4 @@
+ 
 package com.example.transp;
 
 import javax.annotation.PostConstruct;
@@ -12,9 +13,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
 /**
- * Distances view part
+ * Shipments view part
  */
-public class DistancesPart {
+public class ShipmentsPart {
 
 	TableViewer viewer;
 
@@ -27,8 +28,9 @@ public class DistancesPart {
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent, final TranspService service, ErrorHandler errorHandler) {
-		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+	public void postConstruct(Composite parent, final TranspService service) {
+		viewer = new TableViewer(parent,
+				SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("", new ColumnLabelProvider() {
 			@Override
@@ -42,17 +44,7 @@ public class DistancesPart {
 			addColumn(markets[i].name, new ColumnLabelProvider() {
 				@Override
 				public String getText(Object element) {
-					return Double.toString(service.distances()[(int) element][market_index]);
-				}
-			}).setEditingSupport(new TableEditingSupport<Integer>(viewer, errorHandler) {
-				@Override
-				protected double doGetValue(Integer element) {
-					return service.distances()[(int) element][market_index];
-				}
-
-				@Override
-				protected void doSetValue(Integer element, double value) {
-					service.distances()[(int) element][market_index] = value;
+					return Double.toString(service.shipments()[(int) element][market_index]);
 				}
 			});
 		}
@@ -66,6 +58,13 @@ public class DistancesPart {
 		final Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
+		
+		service.addShipmentsChangeListener(new ShipmentsChangeListener() {
+			@Override
+			public void shipmentsChanged() {
+				viewer.refresh();
+			}
+		});
 	}
 
 	@Focus
