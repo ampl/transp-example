@@ -57,15 +57,17 @@ class SelectionChangedListener implements ISelectionChangedListener, FocusListen
 public class PlantsPart {
 	private TableViewer viewer;
 
-	private void addColumn(String name, ColumnLabelProvider provider) {
+	private TableViewerColumn addColumn(String name, ColumnLabelProvider provider) {
 		TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 		column.getColumn().setWidth(200);
 		column.getColumn().setText(name);
 		column.setLabelProvider(provider);
+		return column;
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent, TranspService service) {
+	public void postConstruct(Composite parent,
+			final TranspService service, final ErrorHandler errorHandler) {
 		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("Name", new ColumnLabelProvider() {
@@ -78,6 +80,28 @@ public class PlantsPart {
 			@Override
 			public String getText(Object element) {
 				return Double.toString(((Plant) element).capacity);
+			}
+		}).setEditingSupport(new TableEditingSupport(viewer) {
+			@Override
+			protected Object getValue(Object element) {
+				return Double.toString(((Plant) element).capacity);
+			}
+
+			@Override
+			protected void setValue(Object element, Object value) {
+				double capacity;
+				try {
+					capacity = Double.parseDouble((String) value);
+				} catch (NumberFormatException e) {
+					errorHandler.handle(String.format("%s is not a valid number", value));
+					return;
+				}
+				if (capacity < 0) {
+					errorHandler.handle("Capacity cannot be negative");
+					return;
+				}
+				((Plant) element).capacity = capacity;
+				viewer.update(element, null);
 			}
 		});
 

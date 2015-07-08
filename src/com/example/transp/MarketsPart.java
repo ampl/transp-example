@@ -17,11 +17,12 @@ import org.eclipse.swt.widgets.Table;
 public class MarketsPart {
 	private TableViewer viewer;
 
-	private void addColumn(String name, ColumnLabelProvider provider) {
+	private TableViewerColumn addColumn(String name, ColumnLabelProvider provider) {
 		TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 		column.getColumn().setWidth(200);
 		column.getColumn().setText(name);
 		column.setLabelProvider(provider);
+		return column;
 	}
 
 	@PostConstruct
@@ -38,6 +39,16 @@ public class MarketsPart {
 			@Override
 			public String getText(Object element) {
 				return Double.toString(((Market) element).demand);
+			}
+		}).setEditingSupport(new TableEditingSupport(viewer) {
+			@Override
+			protected Object getValue(Object element) {
+				return Double.toString(((Market) element).demand);
+			}
+			@Override
+			protected void setValue(Object element, Object value) {
+				((Market) element).demand = Double.valueOf((String)value);
+				viewer.update(element, null);
 			}
 		});
 

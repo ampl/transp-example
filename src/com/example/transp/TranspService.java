@@ -1,9 +1,16 @@
 package com.example.transp;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.ampl.AMPL;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
+
+import com.ampl.AMPL;
 
 /**
  * A point in geographical coordinates: latitude and longitude.
@@ -69,8 +76,6 @@ interface LocationChangeListener {
  * Transportation service - manages data and AMPL session
  */
 public class TranspService {
-	// private AMPL ampl = new AMPL();
-
 	private Plant[] plants = new Plant[] { new Plant("Seattle", 350, new LatLng(47.6097, -122.3331)),
 			new Plant("San Diego", 600, new LatLng(32.7150, -117.1625)) };
 
@@ -117,5 +122,20 @@ public class TranspService {
 
 	public void removeLocationChangeListener(LocationChangeListener listener) {
 		listeners.remove(listener);
+	}
+	
+	URL getResourceURL(String filename) throws IOException {
+		Bundle bundle = FrameworkUtil.getBundle(TranspService.class);
+		URL url = FileLocator.find(bundle, new Path(filename), null);
+		return FileLocator.toFileURL(url);
+	}
+	
+	public void optimize() throws IOException {
+		// TODO: execute asynchronously
+		try (AMPL ampl = new AMPL()) {
+			ampl.read(getResourceURL("transp.ampl").getPath());
+			ampl.solve();
+			System.out.println(ampl.getVariable("x").value());
+		}
 	}
 }
