@@ -18,15 +18,16 @@ public class DistancesPart {
 
 	TableViewer viewer;
 
-	private void addColumn(String name, ColumnLabelProvider provider) {
+	private TableViewerColumn addColumn(String name, ColumnLabelProvider provider) {
 		TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 		column.getColumn().setWidth(100);
 		column.getColumn().setText(name);
 		column.setLabelProvider(provider);
+		return column;
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent, final TranspService service) {
+	public void postConstruct(Composite parent, final TranspService service, ErrorHandler errorHandler) {
 		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("", new ColumnLabelProvider() {
@@ -44,7 +45,19 @@ public class DistancesPart {
 					int index = (int) element * markets.length + market_index;
 					return Double.toString(service.distances()[index]);
 				}
-			});
+			}).setEditingSupport(new TableEditingSupport<Integer>(viewer, errorHandler) {
+				@Override
+				protected double doGetValue(Integer element) {
+					int index = (int) element * markets.length + market_index;
+					return service.distances()[index];
+				}
+
+				@Override
+				protected void doSetValue(Integer element, double value) {
+					int index = (int) element * markets.length + market_index;
+					service.distances()[index] = value;
+				}
+			});;
 		}
 
 		Integer[] inputs = new Integer[service.plants().length];

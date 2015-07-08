@@ -108,6 +108,10 @@ public class TranspService {
 		return freight;
 	}
 
+	public void setFreight(double value) {
+		freight = value;
+	}
+
 	/**
 	 * Set current location.
 	 */

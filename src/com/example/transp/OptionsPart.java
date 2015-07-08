@@ -14,15 +14,16 @@ import org.eclipse.swt.widgets.Table;
 public class OptionsPart {
 	private TableViewer viewer;
 
-	private void addColumn(String name, ColumnLabelProvider provider) {
+	private TableViewerColumn addColumn(String name, ColumnLabelProvider provider) {
 		TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 		column.getColumn().setWidth(200);
 		column.getColumn().setText(name);
 		column.setLabelProvider(provider);
+		return column;
 	}
 
 	@PostConstruct
-	public void postConstruct(Composite parent, TranspService service) {
+	public void postConstruct(Composite parent, TranspService service, ErrorHandler errorHandler) {
 		viewer = new TableViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
 		addColumn("Name", new ColumnLabelProvider() {
@@ -35,6 +36,16 @@ public class OptionsPart {
 			@Override
 			public String getText(Object element) {
 				return Double.toString(((TranspService) element).freight());
+			}
+		}).setEditingSupport(new TableEditingSupport<TranspService>(viewer, errorHandler) {
+			@Override
+			protected double doGetValue(TranspService element) {
+				return element.freight();
+			}
+
+			@Override
+			protected void doSetValue(TranspService element, double value) {
+				element.setFreight(value);
 			}
 		});
 
