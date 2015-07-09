@@ -1,7 +1,7 @@
 Transportation Example
 ======================
 
-Example of an `Eclipse <https://eclipse.org/home/index.php>`_ 4 Rich Client Platform
+Example of an `Eclipse <http://eclipse.org>`_ 4 Rich Client Platform
 application with optimization support via `AMPL API <http://ampl.com/products/api/>`_.
 
 .. image:: https://raw.githubusercontent.com/ampl/transp-example/master/screenshot.png
