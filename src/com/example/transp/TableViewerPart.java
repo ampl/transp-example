@@ -19,66 +19,70 @@ import org.eclipse.swt.widgets.Table;
 /**
  * Selection changed and focus listener for PlantsPart and MarketsPart
  */
-class SelectionChangedListener implements ISelectionChangedListener, FocusListener {
-	private TranspService service;
-	private TableViewer viewer;
+class SelectionChangedListener
+    implements ISelectionChangedListener, FocusListener {
+  private TranspService service;
+  private TableViewer viewer;
 
-	void setSelection(ISelection sel) {
-		if (sel.isEmpty() || !(sel instanceof IStructuredSelection))
-			return;
-		service.setLocation((Location) ((IStructuredSelection) sel).getFirstElement());
-	}
+  void setSelection(ISelection sel) {
+    if (sel.isEmpty() || !(sel instanceof IStructuredSelection))
+      return;
+    service
+        .setLocation((Location) ((IStructuredSelection) sel).getFirstElement());
+  }
 
-	SelectionChangedListener(TranspService service, TableViewer viewer) {
-		this.service = service;
-		this.viewer = viewer;
-	}
+  SelectionChangedListener(TranspService service, TableViewer viewer) {
+    this.service = service;
+    this.viewer = viewer;
+  }
 
-	@Override
-	public void selectionChanged(SelectionChangedEvent e) {
-		setSelection(e.getSelection());
-	}
+  @Override
+  public void selectionChanged(SelectionChangedEvent e) {
+    setSelection(e.getSelection());
+  }
 
-	@Override
-	public void focusGained(FocusEvent e) {
-		setSelection(viewer.getSelection());
-	}
+  @Override
+  public void focusGained(FocusEvent e) {
+    setSelection(viewer.getSelection());
+  }
 
-	@Override
-	public void focusLost(FocusEvent e) {
-		service.setLocation(null);
-	}
+  @Override
+  public void focusLost(FocusEvent e) {
+    service.setLocation(null);
+  }
 }
 
 public abstract class TableViewerPart {
-	protected TableViewer viewer;
-	protected int columnWidth = 200;
+  protected TableViewer viewer;
+  protected int columnWidth = 200;
 
-	protected TableViewerColumn addColumn(String name, int style, ColumnLabelProvider provider) {
-		TableViewerColumn column = new TableViewerColumn(viewer, style);
-		column.getColumn().setWidth(columnWidth);
-		column.getColumn().setText(name);
-		column.setLabelProvider(provider);
-		return column;
-	}
-	
-	protected abstract void postConstruct(TranspService service, ErrorHandler errorHandler);
+  protected TableViewerColumn addColumn(String name, int style,
+      ColumnLabelProvider provider) {
+    TableViewerColumn column = new TableViewerColumn(viewer, style);
+    column.getColumn().setWidth(columnWidth);
+    column.getColumn().setText(name);
+    column.setLabelProvider(provider);
+    return column;
+  }
 
-	@PostConstruct
-	public final void postConstruct(
-			Composite parent, TranspService service, ErrorHandler errorHandler) {
-		viewer = new TableViewer(parent,
-				SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+  protected abstract void postConstruct(TranspService service,
+      ErrorHandler errorHandler);
 
-		postConstruct(service, errorHandler);
+  @PostConstruct
+  public final void postConstruct(Composite parent, TranspService service,
+      ErrorHandler errorHandler) {
+    viewer = new TableViewer(parent,
+        SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 
-		final Table table = viewer.getTable();
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-	}
+    postConstruct(service, errorHandler);
 
-	@Focus
-	public void onFocus(TranspService service) {
-		viewer.getControl().setFocus();
-	}
+    final Table table = viewer.getTable();
+    table.setHeaderVisible(true);
+    table.setLinesVisible(true);
+  }
+
+  @Focus
+  public void onFocus(TranspService service) {
+    viewer.getControl().setFocus();
+  }
 }

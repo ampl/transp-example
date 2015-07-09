@@ -9,9 +9,9 @@ import org.eclipse.e4.ui.workbench.lifecycle.PostContextCreate;
  */
 @SuppressWarnings("restriction")
 public class LifeCycleManager {
-	@PostContextCreate
-	void postContextCreate(IEclipseContext context) {
-		context.set(ErrorHandler.class, new ErrorHandler());
-		context.set(TranspService.class, new TranspService());
-	}
+  @PostContextCreate
+  void postContextCreate(IEclipseContext context) {
+    context.set(ErrorHandler.class, new ErrorHandler());
+    context.set(TranspService.class, new TranspService());
+  }
 }
