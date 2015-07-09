@@ -83,20 +83,23 @@ interface ShipmentsChangeListener {
 public class TranspService {
 	private Plant[] plants = new Plant[] {
 			new Plant("Seattle", 350, new LatLng(47.6097, -122.3331)),
-			new Plant("San Diego", 600, new LatLng(32.7150, -117.1625))
+			new Plant("San Diego", 500, new LatLng(32.7150, -117.1625)),
+			new Plant("Charlotte", 250, new LatLng(35.2269, -80.8433))
 	};
 
 	private Market[] markets = new Market[] {
 			new Market("New York", 325, new LatLng(40.7127, -74.0059)),
 			new Market("Chicago", 300, new LatLng(41.8369, -87.6847)),
-			new Market("Topeka", 275, new LatLng(39.0558, -95.6894))
+			new Market("Topeka", 275, new LatLng(39.0558, -95.6894)),
+			new Market("Pittsburgh", 200, new LatLng(40.4397, -79.9764))
 	};
 
 	// distances[i][j] is a distance from plant i to market j in thousands of
 	// miles
 	private double[][] distances = new double[][] {
-		new double[] {2.5, 1.7, 1.8},
-		new double[] {2.5, 1.8, 1.4}
+		new double[] {2857, 2064, 1851, 2529},
+		new double[] {2761, 2083, 1514, 2411},
+		new double[] { 629,  755, 1024,  447}
 	};
 
 	// Freight in dollars per case per thousand miles
@@ -104,7 +107,7 @@ public class TranspService {
 	
 	// shipments[i][j] is a shipment from plant i to market j in cases
 	private double[][] shipments = new double[][] {
-		new double[3], new double[3]
+		new double[4], new double[4], new double[4]
 	};
 
 	private List<LocationChangeListener> locationChangeListeners =
