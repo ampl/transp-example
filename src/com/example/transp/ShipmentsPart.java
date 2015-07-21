@@ -24,7 +24,7 @@ public class ShipmentsPart extends TableViewerPart {
     addColumn("Market", SWT.NONE, new ColumnLabelProvider() {
       @Override
       public String getText(Object element) {
-        return service.markets()[(int) element / numMarkets].name;
+        return service.markets()[(int) element % numMarkets].name;
       }
     });
     addColumn("Shipment", SWT.RIGHT, new ColumnLabelProvider() {
